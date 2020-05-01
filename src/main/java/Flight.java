@@ -1,4 +1,6 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Flight {
 
@@ -6,19 +8,22 @@ public class Flight {
     private ArrayList<Passenger> passengers;
     private String destination;
     private String departure;
-    private String departureTime;
+    private Date departureTime;
     private int availableSeats;
+    SimpleDateFormat sdf;
 
 
 
 
-    public Flight(Plane plane, String destination, String departure, String departureTime) {
+    public Flight(Plane plane, String destination, String departure, Date departureTime) {
         this.plane = plane;
         this.passengers = new ArrayList<Passenger>();
         this.destination = destination;
         this.departure = departure;
         this.departureTime = departureTime;
         this.availableSeats = getAvailableSeats();
+        this.sdf = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+
     }
 
     public Plane getPlane() {
@@ -37,7 +42,7 @@ public class Flight {
         return departure;
     }
 
-    public String getDepartureTime() {
+    public Date getDepartureTime() {
         return departureTime;
     }
 
