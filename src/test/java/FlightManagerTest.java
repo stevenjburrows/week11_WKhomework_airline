@@ -73,4 +73,25 @@ public class FlightManagerTest {
         flightManager.addPassenger(rob);
         assertNotEquals(0, ari.getSeatNumber());
     }
+
+    @Test
+    public void sortBySeatNumber () {
+        flightManager.addPassenger(ari);
+        flightManager.addPassenger(sara);
+        flightManager.addPassenger(stephen);
+        flightManager.addPassenger(rob);
+        flightManager.sortBySeatNumber();
+
+        assertEquals(1, flight1.getPassengers().get(0).getSeatNumber());
+    }
+
+    @Test
+    public void findBySeatNumber(){
+        flightManager.addPassenger(ari);
+        flightManager.addPassenger(sara);
+        flightManager.addPassenger(stephen);
+        flightManager.addPassenger(rob);
+        Passenger found = flightManager.findPassengerBySeatNumber(3);
+        assertEquals(3, found.getSeatNumber());
+    }
 }

@@ -9,6 +9,7 @@ public class FlightManager {
     private int seat;
     private ArrayList<Integer> seatsTaken;
     private int totalSeats;
+    private ArrayList<Passenger> arr;
 
 
     public FlightManager(Flight flight) {
@@ -19,6 +20,7 @@ public class FlightManager {
         this.seat = seat;
         this.seatsTaken = new ArrayList<Integer>();
         this.totalSeats = flight.getPlane().getPlaneType().getCapacity();
+        this.arr = new ArrayList<Passenger>();
     }
 
     public Flight getFlight() {
@@ -51,13 +53,6 @@ public class FlightManager {
 
     }
 
-//    public void addPassenger(Passenger passenger) {
-//        flight.addPassenger(passenger);
-//        int availableSeats = flight.getAvailableSeats();
-//        int seat = randomSeat.nextInt(availableSeats) + 1;
-//        passenger.setSeatNumber(seat);
-//    }
-
     public void addPassenger(Passenger passenger) {
         if (flight.getAvailableSeats() > 0) {
 
@@ -68,4 +63,41 @@ public class FlightManager {
             passenger.setSeatNumber(seat);
         }
     }
-}
+
+    public void sortBySeatNumber() {
+        arr = flight.getPassengers();
+        int n = arr.size();
+
+        for(int i=0; i < n - 1; i++){
+            for (int j = 0; j < n-i-1; j++)
+                if (arr.get(j).getSeatNumber() > arr.get(j+1).getSeatNumber())
+                {
+                    // swap arr[j+1] and arr[i]
+                    Passenger temp = arr.get(j);
+                    arr.set(j, arr.get(j+1));
+                    arr.set(j+1, temp);
+                }
+
+            }
+        }
+
+        public Passenger findPassengerBySeatNumber(int seatNumber) {
+            sortBySeatNumber();
+            int high = arr.size();
+            int low = 1;
+            Passenger foundPassenger = null;
+            while(low <= high){
+                int mid = (low + high) /2;
+                if (arr.get(mid).getSeatNumber() < seatNumber){
+                    low = mid + 1;
+                } else if (arr.get(mid).getSeatNumber() > seatNumber){
+                    high = mid -1;
+                } else if (arr.get(mid).getSeatNumber() == seatNumber){
+                    foundPassenger = arr.get(mid);
+                    break;
+                }
+            }
+            return foundPassenger;
+        }
+
+    }
