@@ -20,7 +20,7 @@ public class FlightTest {
         sdf = new SimpleDateFormat("HH:mm dd/MM/yyyy");
         date1 = sdf.parse("14:00 12/06/2020");
         plane1 = new Plane(PlaneType.ERCOUPE);
-        flight1 = new Flight(plane1, "GLA", "EDI", date1);
+        flight1 = new Flight(plane1, "ER345", "GLA", "EDI", date1);
         john = new Passenger("John", 3);
         sam = new Passenger("Sam", 5);
     }
@@ -30,6 +30,10 @@ public class FlightTest {
         assertEquals("GLA", flight1.getDestination());
     }
 
+    @Test
+    public void canGetFlightNumber() {
+        assertEquals("ER345", flight1.getFlightNumber());
+    }
     @Test
     public void canGetDeparture() {
         assertEquals("EDI", flight1.getDeparture());
@@ -62,5 +66,7 @@ public class FlightTest {
         flight1.addPassenger(sam);
         assertEquals(1, flight1.getPassengers().size());
     }
+
+
 }
 

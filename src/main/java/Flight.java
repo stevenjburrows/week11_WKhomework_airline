@@ -5,6 +5,7 @@ import java.util.Date;
 public class Flight {
 
     private Plane plane;
+    private String flightNumber;
     private ArrayList<Passenger> passengers;
     private String destination;
     private String departure;
@@ -15,19 +16,24 @@ public class Flight {
 
 
 
-    public Flight(Plane plane, String destination, String departure, Date departureTime) {
+    public Flight(Plane plane, String flightNumber, String destination, String departure, Date departureTime) {
         this.plane = plane;
+        this.flightNumber = flightNumber;
         this.passengers = new ArrayList<Passenger>();
         this.destination = destination;
         this.departure = departure;
         this.departureTime = departureTime;
-        this.availableSeats = getAvailableSeats();
+        this.availableSeats = plane.getPlaneType().getCapacity();
         this.sdf = new SimpleDateFormat("HH:mm dd/MM/yyyy");
 
     }
 
     public Plane getPlane() {
         return plane;
+    }
+
+    public String getFlightNumber() {
+        return flightNumber;
     }
 
     public ArrayList<Passenger> getPassengers() {
@@ -47,13 +53,14 @@ public class Flight {
     }
 
     public int getAvailableSeats() {
-        return plane.getPlaneType().getCapacity();
+        return availableSeats;
     }
 
     public void addPassenger(Passenger passenger) {
         if (availableSeats > 0) {
             passengers.add(passenger);
             availableSeats -=1;
+            passenger.setFlight(flightNumber);
         }
     }
 }

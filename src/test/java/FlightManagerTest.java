@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class FlightManagerTest {
 
@@ -13,6 +14,10 @@ public class FlightManagerTest {
     private Plane plane1;
     private Passenger john;
     private Passenger sam;
+    private Passenger ari;
+    private Passenger sara;
+    private Passenger stephen;
+    private Passenger rob;
     private FlightManager flightManager;
     private Date date1;
     SimpleDateFormat sdf ;
@@ -22,12 +27,17 @@ public class FlightManagerTest {
         sdf = new SimpleDateFormat("HH:mm dd/MM/yyyy");
         date1 = sdf.parse("14:00 12/06/2020");
         plane1 = new Plane(PlaneType.ECLIPSE);
-        flight1 = new Flight(plane1, "GLA", "EDI", date1);
+        flight1 = new Flight(plane1, "EC526", "GLA", "EDI", date1);
         john = new Passenger("John", 3);
         sam = new Passenger("Sam", 5);
-        flight1.addPassenger(john);
-        flight1.addPassenger(sam);
+        ari = new Passenger("Ari", 1);
+        sara = new Passenger("sara", 2);
+        stephen = new Passenger("Stephen", 1);
+        rob = new Passenger("Rob", 1);
         flightManager = new FlightManager(flight1);
+        flightManager.addPassenger(john);
+        flightManager.addPassenger(sam);
+
     }
 
     @Test
@@ -47,6 +57,20 @@ public class FlightManagerTest {
 
     @Test
     public void remainingWeightAllowance() {
-        assertEquals(20, flightManager.getremainingWeightAllowance());
+        assertEquals(20, flightManager.getRemainingWeightAllowance());
+    }
+
+    @Test
+    public void addFlightToPassenger () {
+        assertEquals("EC526", john.getFlight());
+    }
+
+    @Test
+    public void addSeatNumber () {
+        flightManager.addPassenger(ari);
+        flightManager.addPassenger(sara);
+        flightManager.addPassenger(stephen);
+        flightManager.addPassenger(rob);
+        assertNotEquals(0, ari.getSeatNumber());
     }
 }
